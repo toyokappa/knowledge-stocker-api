@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::ApplicationController
   def index
-    render json: 'hellow world'
+    render json: @user
   end
 end

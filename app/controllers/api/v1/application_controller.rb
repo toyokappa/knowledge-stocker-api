@@ -7,7 +7,8 @@ class Api::V1::ApplicationController < ApplicationController
 
   def authenticate
     authenticate_or_request_with_http_token do |token, _|
-      token == 'aaa'
+      @user = User.find_by(auth_token: token)
+      @user.present?
     end
   end
 end
