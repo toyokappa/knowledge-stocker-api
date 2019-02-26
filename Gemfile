@@ -9,9 +9,12 @@ gem "puma", "~> 3.11"
 gem "rails", "~> 5.2.2"
 
 group :development, :test do
+  gem "factory_bot_rails"
   gem "pry-byebug"
   gem "pry-doc"
   gem "pry-rails"
+  gem "rspec-rails"
+  gem "rspec_junit_formatter"
 end
 
 group :development do
