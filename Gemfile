@@ -3,10 +3,14 @@ git_source(:github) {|repo| "https://github.com/#{repo}.git" }
 
 ruby "2.5.3"
 
+# Core
 gem "bootsnap", ">= 1.1.0", require: false
 gem "mysql2", ">= 0.4.4", "< 0.6.0"
 gem "puma", "~> 3.11"
 gem "rails", "~> 5.2.2"
+
+# Authentication
+gem "devise_token_auth"
 
 group :development, :test do
   gem "factory_bot_rails"

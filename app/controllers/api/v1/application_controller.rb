@@ -1,14 +1,11 @@
 class Api::V1::ApplicationController < ApplicationController
-  include ActionController::HttpAuthentication::Token::ControllerMethods
+  include DeviseTokenAuth::Concerns::SetUserByToken
 
-  before_action :authenticate
+  before_action :authenticate_api_v1_user!
 
   protected
 
-  def authenticate
-    authenticate_or_request_with_http_token do |token, _|
-      @user = User.find_by(auth_token: token)
-      @user.present?
+    def current_user
+      current_api_v1_user
     end
-  end
 end
