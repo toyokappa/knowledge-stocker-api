@@ -12,6 +12,7 @@ gem "rails", "~> 5.2.2"
 
 # Authentication
 gem "devise_token_auth"
+gem "jwt", require: false
 
 group :development, :test do
   gem "factory_bot_rails"
