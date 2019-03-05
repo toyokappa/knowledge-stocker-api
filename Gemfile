@@ -11,6 +11,7 @@ gem "rack-cors"
 gem "rails", "~> 5.2.2"
 
 # Authentication
+gem "bcrypt"
 gem "jwt", require: false
 
 group :development, :test do
