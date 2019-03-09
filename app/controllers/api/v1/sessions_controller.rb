@@ -2,7 +2,7 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
   skip_before_action :authorize_request, only: :create
 
   def new
-    render json: "ok"
+    render json: { userName: current_user.name }
   end
 
   def create
@@ -10,6 +10,6 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
     return render json: { errors: "unauthorized" }, status: :unauthorized unless user&.authenticate(params[:password])
 
     token = JsonWebToken.encode(user_id: user.id)
-    render json: { authToken: token }
+    render json: { authToken: token, userName: user.name }
   end
 end
