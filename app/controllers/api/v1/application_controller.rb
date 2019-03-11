@@ -1,10 +1,10 @@
 class Api::V1::ApplicationController < ApplicationController
   before_action :authorize_request
-  
+
   # NOTE: attr_accessorとbefore_actionの相性が悪いため
   #       setterはインスタンス変数を使用
   attr_reader :current_user
-  
+
   protected
 
     def authorize_request

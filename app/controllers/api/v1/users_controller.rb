@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::ApplicationController
   skip_before_action :authorize_request, only: :create
-  
+
   def index
     render json: User.all
   end
@@ -9,9 +9,9 @@ class Api::V1::UsersController < Api::V1::ApplicationController
     User.create!(user_params)
     render json: "ok"
   end
-  
+
   private
-  
+
     def user_params
       params.permit(:name, :email, :password, :password_confirmation)
     end
