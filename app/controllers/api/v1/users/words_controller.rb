@@ -10,6 +10,11 @@ class Api::V1::Users::WordsController < Api::V1::ApplicationController
     render json: @user.words
   end
   
+  def destroy
+    @user.words.find(params[:id]).destroy!
+    render json: @user.words
+  end
+  
   private
   
     def set_user
