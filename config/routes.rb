@@ -5,7 +5,7 @@ Rails.application.routes.draw do
         resources :words, only: %i[index create destroy], module: :users
       end
       resources :words, only: %i[show update] do
-        resources :knowledges, only: :create, module: :words
+        resources :knowledges, only: %i[create update], shallow: true, module: :words
       end
       post :sign_up, to: "users#create"
       get  :sign_in, to: "sessions#new"
