@@ -1,4 +1,5 @@
 class Api::V1::Users::WordsController < Api::V1::ApplicationController
+  # TODO: wordsの並び順を整理する
   before_action :set_user
 
   def index

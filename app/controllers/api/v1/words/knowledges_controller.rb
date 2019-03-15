@@ -1,4 +1,5 @@
 class Api::V1::Words::KnowledgesController < Api::V1::ApplicationController
+  # TODO: knowledgesの並び順を整理する
   def create
     word = Word.find(params[:word_id])
     word.knowledges.create!(knowledge_params)
