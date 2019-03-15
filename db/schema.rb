@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_145448) do
   create_table "knowledges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "url"
     t.string "title"
-    t.integer "understanding"
+    t.decimal "understanding", precision: 4, scale: 2
     t.bigint "word_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

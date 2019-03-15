@@ -3,7 +3,7 @@ class CreateKnowledges < ActiveRecord::Migration[5.2]
     create_table :knowledges do |t|
       t.string :url
       t.string :title
-      t.integer :understanding
+      t.decimal :understanding, precision: 4, scale: 2
       t.references :word, foreign_key: true
 
       t.timestamps
