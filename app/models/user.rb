@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :words, inverse_of: :user, dependent: :nullify
+  has_many :knowledges, through: :words
 
   validates :name,     presence: true, uniqueness: true
   validates :email,    presence: true, uniqueness: true
