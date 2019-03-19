@@ -6,8 +6,10 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   end
 
   def create
-    User.create!(user_params)
-    render json: "ok"
+    user = User.new(user_params)
+    user.save!(user_params)
+    token = JsonWebToken.encode(user_id: user.id)
+    render json: { authToken: token, userName: user.name }
   end
 
   private
