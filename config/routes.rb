@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :words, only: %i[show update] do
         resources :knowledges, only: %i[create update destroy], shallow: true, module: :words
       end
+      resource :ranking, only: :show
       post :sign_up, to: "users#create"
       get  :sign_in, to: "sessions#new"
       post :sign_in, to: "sessions#create"
