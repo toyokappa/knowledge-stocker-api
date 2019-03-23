@@ -18,6 +18,12 @@ words = [
   [16, 'fffff', 5],
   [17, 'ggggg', 5],
   [18, 'hhhhh', 6],
+  [19, 'iiiii', 7],
+  [20, 'jjjjj', 8],
+  [21, 'kkkkk', 9],
+  [22, 'lllll', 10],
+  [23, 'mmmmm', 10],
+  [24, 'nnnnn', 10],
 ]
 
 Word.seed_once(:id, words.map {|w| keys.zip(w).to_h })

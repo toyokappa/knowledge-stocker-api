@@ -14,6 +14,12 @@ knowledges = [
   [12, "https://gunmaaa.com", "Gunmaaa!!!", 5, 14],
   [13, "https://gunmaaa.com", "Gunmaaa!!!", 2, 15],
   [14, "https://gunmaaa.com", "Gunmaaa!!!", 3, 16],
+  [15, "https://gunmaaa.com", "Gunmaaa!!!", 3, 17],
+  [16, "https://gunmaaa.com", "Gunmaaa!!!", 3, 18],
+  [17, "https://gunmaaa.com", "Gunmaaa!!!", 3, 19],
+  [18, "https://gunmaaa.com", "Gunmaaa!!!", 3, 20],
+  [19, "https://gunmaaa.com", "Gunmaaa!!!", 3, 21],
+  [20, "https://gunmaaa.com", "Gunmaaa!!!", 3, 22],
 ]
 
 Knowledge.seed_once(:id, knowledges.map {|k| keys.zip(k).to_h })
