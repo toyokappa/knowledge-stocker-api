@@ -14,6 +14,9 @@ gem "rails", "~> 5.2.2"
 gem "bcrypt"
 gem "jwt", require: false
 
+# DB
+gem "seed-fu"
+
 group :development, :test do
   gem "factory_bot_rails"
   gem "pry-byebug"
