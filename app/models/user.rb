@@ -14,7 +14,7 @@ class User < ApplicationRecord
         )
       ) AS u_words
       ON u_words.user_id = users.id
-    |, started_at, ended_at])).select("users.name, count(*) AS score").group(:name)
+    |, started_at, ended_at])).select("users.name, users.image_url, count(*) AS score").group(:name)
   }
 
   class << self
