@@ -1,14 +1,6 @@
 class User < ApplicationRecord
-  has_secure_password
-
   has_many :words, inverse_of: :user, dependent: :nullify
   has_many :knowledges, through: :words
-
-  validates :name,     presence: true, uniqueness: true
-  validates :email,    presence: true, uniqueness: true
-  validates :email,    format: { with: URI::MailTo::EMAIL_REGEXP, allow_blank: true }
-  validates :password, length: { minimum: 6, allow_blank: true }
-  validates :password_confirmation, presence: true
 
   scope :where_knowledges_created_at, ->(created_at) { eager_load(:knowledges).where(knowledges: { created_at: created_at }) }
   scope :group_by_name_with_understood_score, ->(started_at, ended_at) {
@@ -26,6 +18,19 @@ class User < ApplicationRecord
   }
 
   class << self
+    def find_or_create_from_auth_params(auth_params)
+      uid       = auth_params[:uid]
+      name      = auth_params[:name]
+      email     = auth_params[:email]
+      image_url = auth_params[:imageUrl]
+
+      find_or_create_by(uid: uid) do |user|
+        user.name      = name
+        user.email     = email
+        user.image_url = image_url
+      end
+    end
+
     def rank_as_json(term: "daily")
       now = Time.zone.now
       start_and_end = case term

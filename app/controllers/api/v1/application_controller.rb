@@ -14,7 +14,7 @@ class Api::V1::ApplicationController < ApplicationController
       payload = JsonWebToken.decode(token)
       return render json: { errors: "Invalid token" }, status: :unauthorized unless payload
 
-      @current_user = User.find_by(id: payload[:user_id])
+      @current_user = User.find_by(uid: payload[:user_id])
       return render json: { errors: "Record not found" }, status: :unauthorized unless @current_user
     end
 end
