@@ -12,6 +12,10 @@ ADD Gemfile $APP_ROOT
 ADD Gemfile.lock $APP_ROOT
 
 RUN gem update --system
+RUN gem uninstall bundler
+RUN rm -f /usr/local/bin/bundle
+RUN rm -f /usr/local/bin/bundler
+RUN gem install bundler
 RUN bundle install --system # --without development test
 
 ADD . $APP_ROOT
