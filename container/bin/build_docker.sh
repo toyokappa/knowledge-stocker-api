@@ -24,31 +24,39 @@ bundle install --path=${BUNDLE_CACHE_PATH}
 $(aws ecr get-login --region ap-northeast-1)
 
 # Rails作成
-echo start rails container build
-local rails_docker_cache=~/caches/docker/${APP_NAME}-rails_${ENV}.tar
-local rails_image_name=${CONTAINER_REGISTRY}/${NAMESPACE}/${APP_NAME}-rails:${ENV}_${SHA1}
+build_rails_image() {
+  echo start rails container build
+  local rails_docker_cache=~/caches/docker/${APP_NAME}-rails_${ENV}.tar
+  local rails_image_name=${CONTAINER_REGISTRY}/${NAMESPACE}/${APP_NAME}-rails:${ENV}_${SHA1}
 
-if [[ -e ${rails_docker_cache} ]]; then
-  docker load -i ${rails_docker_cache}
-fi
+  if [[ -e ${rails_docker_cache} ]]; then
+    docker load -i ${rails_docker_cache}
+  fi
 
-docker build --rm=false -t ${rails_image_name} -f ./container/rails/Dockerfile .
-mkdir -p ~/caches/docker
-docker save -o ${rails_docker_cache} $(docker history ${rails_image_name} -q | grep -v missing)
-time docker push ${rails_image_name}
-echo end rails container build
+  docker build --rm=false -t ${rails_image_name} -f ./container/rails/Dockerfile .
+  mkdir -p ~/caches/docker
+  docker save -o ${rails_docker_cache} $(docker history ${rails_image_name} -q | grep -v missing)
+  time docker push ${rails_image_name}
+  echo end rails container build
+}
+export -f build_rails_image
 
-# nginx作成
-echo start nginx container build
-local nginx_docker_cache=~/caches/docker/${APP_NAME}-nginx_${ENV}.tar
-local nginx_image_name=${CONTAINER_REGISTRY}/${NAMESPACE}/${APP_NAME}-nginx:${NGINX_TAG}
+build_nginx_image() {
+  echo start nginx container build
+  local nginx_docker_cache=~/caches/docker/${APP_NAME}-nginx_${ENV}.tar
+  local nginx_image_name=${CONTAINER_REGISTRY}/${NAMESPACE}/${APP_NAME}-nginx:${NGINX_TAG}
 
-if [[ -e ${nginx_docker_cache} ]]; then
-  docker load -i ${nginx_docker_cache}
-fi
+  if [[ -e ${nginx_docker_cache} ]]; then
+    docker load -i ${nginx_docker_cache}
+  fi
 
-docker build --rm=false -t ${nginx_image_name} -f ./container/nginx/Dockerfile .
-mkdir -p ~/caches/docker
-docker save -o ${nginx_docker_cache} $(docker history ${nginx_image_name} -q | grep -v missing)
-time docker push ${nginx_image_name}
-echo end nginx container build
+  docker build --rm=false -t ${nginx_image_name} -f ./container/nginx/Dockerfile .
+  mkdir -p ~/caches/docker
+  docker save -o ${nginx_docker_cache} $(docker history ${nginx_image_name} -q | grep -v missing)
+  time docker push ${nginx_image_name}
+  echo end nginx container build
+}
+export -f build_nginx_image
+
+build_nginx_image
+build_rails_image
