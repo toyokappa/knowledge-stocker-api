@@ -15,10 +15,12 @@ if [ -n "$ENV" -a "$ENV" = "production" ]; then
   RAILS_MEMORY=800
   NGINX_MEMORY=128
   NGINX_TAG=latest
+  ENV_TAG=pro
 elif [ -n "$ENV" -a "$ENV" = "staging" ]; then
   RAILS_MEMORY=800
   NGINX_MEMORY=128
   NGINX_TAG=release
+  ENV_TAG=stg
 fi
 
 DOCKERRUN_FILE=Dockerrun.aws.json
@@ -41,5 +43,5 @@ aws elasticbeanstalk create-application-version --region ap-northeast-1 --applic
   --version-label ${VERSION_LABEL} --source-bundle S3Bucket=${EB_BUCKET},S3Key=${BUNDLE}
 
 # Update Elastic Beanstalk environment to new version
-aws elasticbeanstalk update-environment --region ap-northeast-1 --environment-name ${APP_NAME}-${ENV} \
+aws elasticbeanstalk update-environment --region ap-northeast-1 --environment-name ${APP_NAME}-${ENV_TAG} \
     --version-label ${VERSION_LABEL}
