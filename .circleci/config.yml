@@ -3,6 +3,8 @@ jobs:
   build:
     docker:
       - image: toyokappa/wakatter-deployer-docker
+        environment: 
+          BUNDLER_VERSION: 2.0.1
     working_directory: ~/wakatter
     branches:
       only:
@@ -10,6 +12,14 @@ jobs:
         - feature/deploy
     steps:
       - checkout
+      - run:
+          name: setup bundler
+          command: |
+            sudo gem update --system
+            sudo gem uninstall bundler
+            sudo rm /usr/local/bin/bundle
+            sudo rm /usr/local/bin/bundler
+            sudo gem install bundler
       - setup_remote_docker
       - restore_cache:
           name: Restoring docker cache
