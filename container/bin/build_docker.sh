@@ -33,7 +33,7 @@ build_rails_image() {
     docker load -i ${rails_docker_cache}
   fi
 
-  docker build --rm=false -t ${rails_image_name} ./container/rails
+  docker build --rm=false -t ${rails_image_name} -f ./container/rails/Dockerfile .
   mkdir -p ~/caches/docker
   docker save -o ${rails_docker_cache} $(docker history ${rails_image_name} -q | grep -v missing)
   time docker push ${rails_image_name}
@@ -50,7 +50,7 @@ build_nginx_image() {
     docker load -i ${nginx_docker_cache}
   fi
 
-  docker build --rm=false -t ${nginx_image_name} ./containers/nginx
+  docker build --rm=false -t ${nginx_image_name} -f ./containers/nginx/Dockerfile .
   mkdir -p ~/caches/docker
   docker save -o ${nginx_docker_cache} $(docker history ${nginx_image_name} -q | grep -v missing)
   time docker push ${nginx_image_name}
